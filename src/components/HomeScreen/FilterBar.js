@@ -1,17 +1,9 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {StyleSheet, Text, View} from 'react-native';
+import CheckBox from './CheckBox';
 
 import FilterList from './FilterList';
 import SelectedFilterList from './SelectedFilterList';
-
-const windowWidth = Dimensions.get('window').width;
 
 const FilterBar = props => {
   const {filters, setFilters, showNotInteresting, setShowNotInteresting} =
@@ -27,19 +19,10 @@ const FilterBar = props => {
       <View style={styles.fiterListWrapper}>
         <SelectedFilterList filters={filters} />
       </View>
-      <View style={styles.notInteresting}>
-        <TouchableOpacity
-          style={styles.checkBoxWrapper}
-          activeOpacity={0.5}
-          onPress={() => setShowNotInteresting(!showNotInteresting)}>
-          <Text>관심없음 상품 보기</Text>
-          {showNotInteresting ? (
-            <Icon name="checkbox-marked" size={15} color="#009988" />
-          ) : (
-            <Icon name="checkbox-blank-outline" size={15} />
-          )}
-        </TouchableOpacity>
-      </View>
+      <CheckBox
+        showNotInteresting={showNotInteresting}
+        setShowNotInteresting={setShowNotInteresting}
+      />
     </View>
   );
 };
@@ -63,16 +46,6 @@ const styles = StyleSheet.create({
 
   brand: {
     fontSize: 20,
-  },
-
-  notInteresting: {
-    width: windowWidth,
-    alignItems: 'flex-end',
-  },
-
-  checkBoxWrapper: {
-    flexDirection: 'row',
-    marginRight: 10,
   },
 });
 export default FilterBar;

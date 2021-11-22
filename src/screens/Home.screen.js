@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {
-  SafeAreaView,
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
 import FilterBar from '../components/HomeScreen/FilterBar';
 import ProductList from '../components/HomeScreen/ProductList';

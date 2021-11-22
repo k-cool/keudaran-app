@@ -1,26 +1,26 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Home from '../screens/Home.screen';
-import Detail from '../screens/Detail.screen';
+import HomeScreen from '../screens/Home.screen';
+import DetailScreen from '../screens/Detail.screen';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = () => {
+const HomeStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        component={Home}
-        options={{title: '크다란 스토어'}}
+        component={HomeScreen}
+        options={{title: '상품 리스트'}}
       />
       <Stack.Screen
         name="Detail"
-        component={Detail}
-        options={{title: '크다란 스토어'}}
+        component={DetailScreen}
+        options={{title: '제품 상세'}}
       />
     </Stack.Navigator>
   );
 };
 
-export default StackNavigator;
+export default HomeStack;

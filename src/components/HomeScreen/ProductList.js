@@ -5,6 +5,12 @@ import ProductItem from './ProductItem';
 const windowWidth = Dimensions.get('window').width;
 
 const ProductList = ({products, navigation}) => {
+  const renderItem = ({item}) => (
+    <ProductItem {...item} navigation={navigation} />
+  );
+
+  const ItemSeperatorComponent = () => <View style={styles.separator} />;
+
   const ListHeader = (
     <View style={styles.logoWrapper}>
       <Image style={styles.logo} source={require('../../assets/logo.png')} />
@@ -15,10 +21,11 @@ const ProductList = ({products, navigation}) => {
     <FlatList
       style={styles.list}
       data={products}
-      renderItem={({item}) => <ProductItem {...item} navigation={navigation} />}
+      renderItem={renderItem}
       keyExtractor={item => item.id}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
+      ItemSeparatorComponent={ItemSeperatorComponent}
       ListHeaderComponent={ListHeader}
+      showsVerticalScrollIndicator={false}
     />
   );
 };

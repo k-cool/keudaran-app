@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-const RecentList = () => {
+import productsData from '../data/productsData';
+import RecentList from '../components/RecentListScreen/RecentList';
+
+const RecentListScreen = ({navigation}) => {
+  const [recentProducts, setRecentProducts] = useState([]);
+
+  useEffect(() => {
+    setRecentProducts(productsData);
+  }, []);
+
   return (
     <View style={styles.block}>
-      <Text>RecentList screen</Text>
+      <RecentList recentProducts={recentProducts} navigation={navigation} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  block: {},
+  block: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
 });
 
-export default RecentList;
+export default RecentListScreen;
