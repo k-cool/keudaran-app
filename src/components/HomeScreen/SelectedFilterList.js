@@ -1,15 +1,18 @@
 import React from 'react';
-import {StyleSheet, FlatList, View} from 'react-native';
+import {StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 import CustomedButton from '../common/CustomedButton';
 
-const SelectedFilterList = ({filters}) => {
+const SelectedFilterList = ({filters, toggleSelected}) => {
   const notSelected = filters.filter(filter => filter.selected === true);
 
   const renderItem = ({item}) => (
-    <View style={styles.btnWrapper}>
+    <TouchableOpacity
+      style={styles.btnWrapper}
+      activeOpacity={0.5}
+      onPress={() => toggleSelected(item.id)}>
       <CustomedButton title={item.name} color="#0088BA" iconShown={true} />
-    </View>
+    </TouchableOpacity>
   );
 
   return (

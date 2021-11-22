@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const CustomedButton = ({title, color, bgColor, onPress, iconShown}) => {
+const CustomedButton = ({title, color, bgColor, iconShown}) => {
   const custumStyle = {
     color: color,
     backgroundColor: bgColor,
@@ -12,16 +12,14 @@ const CustomedButton = ({title, color, bgColor, onPress, iconShown}) => {
   const blockStyle = [styles.block, custumStyle];
   const titleStyle = [styles.title, custumStyle];
   return (
-    <TouchableOpacity onPress={() => onPress} activeOpacity={0.5}>
-      <View style={blockStyle}>
-        <View style={styles.contentsWrapper}>
-          <Text style={titleStyle}>{title}</Text>
-          {iconShown && (
-            <Icon style={styles.icon} name="times" size={15} color={color} />
-          )}
-        </View>
+    <View style={blockStyle}>
+      <View style={styles.contentsWrapper}>
+        <Text style={titleStyle}>{title}</Text>
+        {iconShown && (
+          <Icon style={styles.icon} name="times" size={15} color={color} />
+        )}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

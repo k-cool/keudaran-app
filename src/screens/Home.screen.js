@@ -1,3 +1,5 @@
+/* eslint-disable curly */
+
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
@@ -14,19 +16,31 @@ const Home = ({navigation}) => {
   const [showNotInteresting, setShowNotInteresting] = useState(false);
 
   useEffect(() => {
-    setProducts(productsData);
-  }, []);
+    const selectedFilters = filters.filter(filter => filter.selected);
+    if (selectedFilters.length !== 0) {
+      const nextProducts = [];
+      for (let i = 0; i < productsData.length; i++)
+        for (let j = 0; j < selectedFilters.length; j++)
+          if (productsData[i].brand === selectedFilters[j].name)
+            nextProducts.push(productsData[i]);
+      setProducts(nextProducts);
+    } else setProducts(productsData);
+  }, [filters]);
 
-  // const {top} = useSafeAreaInsets();
+  const toggleSelected = id => {
+    const nextFilter = filters.map(brand =>
+      brand.id === id ? {...brand, selected: !brand.selected} : brand,
+    );
+    setFilters(nextFilter);
+  };
 
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={['bottom']} style={styles.block}>
-        {/* <View style={{height: top}} /> */}
         <View>
           <FilterBar
             filters={filters}
-            setFilters={setFilters}
+            toggleSelected={toggleSelected}
             showNotInteresting={showNotInteresting}
             setShowNotInteresting={setShowNotInteresting}
           />

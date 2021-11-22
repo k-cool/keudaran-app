@@ -7,7 +7,7 @@ const filters = [
   {
     id: 2,
     name: '구찌',
-    selected: true,
+    selected: false,
   },
   {
     id: 3,
@@ -17,7 +17,7 @@ const filters = [
   {
     id: 4,
     name: '스톤아일랜드',
-    selected: true,
+    selected: false,
   },
   {
     id: 5,

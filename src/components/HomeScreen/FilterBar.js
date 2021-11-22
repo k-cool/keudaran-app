@@ -6,18 +6,18 @@ import FilterList from './FilterList';
 import SelectedFilterList from './SelectedFilterList';
 
 const FilterBar = props => {
-  const {filters, setFilters, showNotInteresting, setShowNotInteresting} =
+  const {filters, toggleSelected, showNotInteresting, setShowNotInteresting} =
     props;
 
   return (
     <View style={styles.block}>
       <Text style={styles.title}> 정렬 조건 ✔️</Text>
       <View style={styles.fiterListWrapper}>
-        <Text style={styles.brand}>브랜드 👉 </Text>
-        <FilterList filters={filters} />
+        <Text style={styles.brand}>브랜드 </Text>
+        <FilterList filters={filters} toggleSelected={toggleSelected} />
       </View>
       <View style={styles.fiterListWrapper}>
-        <SelectedFilterList filters={filters} />
+        <SelectedFilterList filters={filters} toggleSelected={toggleSelected} />
       </View>
       <CheckBox
         showNotInteresting={showNotInteresting}
