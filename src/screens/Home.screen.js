@@ -21,12 +21,12 @@ const Home = ({navigation}) => {
     setProducts(productsData);
   }, []);
 
-  const {top} = useSafeAreaInsets();
+  // const {top} = useSafeAreaInsets();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={['bottom']} style={styles.block}>
-        <View style={{height: top}} />
+        {/* <View style={{height: top}} /> */}
         <View>
           <FilterBar
             filters={filters}
@@ -34,7 +34,7 @@ const Home = ({navigation}) => {
             showNotInteresting={showNotInteresting}
             setShowNotInteresting={setShowNotInteresting}
           />
-          <ProductList products={products} />
+          <ProductList products={products} navigation={navigation} />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>

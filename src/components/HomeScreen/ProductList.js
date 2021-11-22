@@ -4,7 +4,7 @@ import ProductItem from './ProductItem';
 
 const windowWidth = Dimensions.get('window').width;
 
-const ProductList = ({products}) => {
+const ProductList = ({products, navigation}) => {
   const ListHeader = (
     <View style={styles.logoWrapper}>
       <Image style={styles.logo} source={require('../../assets/logo.png')} />
@@ -15,7 +15,7 @@ const ProductList = ({products}) => {
     <FlatList
       style={styles.list}
       data={products}
-      renderItem={({item}) => <ProductItem {...item} />}
+      renderItem={({item}) => <ProductItem {...item} navigation={navigation} />}
       keyExtractor={item => item.id}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListHeaderComponent={ListHeader}

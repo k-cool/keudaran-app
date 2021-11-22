@@ -3,9 +3,14 @@ import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
 
 import {addComma} from '../../utils/NumberUtils';
 
-const ProductItem = ({id, title, brand, price}) => {
+const ProductItem = props => {
+  const {id, title, brand, price, navigation} = props;
+
   return (
-    <TouchableOpacity style={styles.block} activeOpacity={0.5}>
+    <TouchableOpacity
+      style={styles.block}
+      activeOpacity={0.5}
+      onPress={() => navigation.push('Detail', {id: id})}>
       <Image
         style={styles.icon}
         source={require('../../assets/dinoIcon.png')}
@@ -55,7 +60,6 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    // marginRight: 10,
     fontSize: 15,
   },
 });

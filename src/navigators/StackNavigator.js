@@ -12,12 +12,12 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{headerShown: false}}
+        options={{title: '크다란 스토어'}}
       />
       <Stack.Screen
         name="Detail"
         component={Detail}
-        options={{headerShown: false}}
+        options={{title: '크다란 스토어'}}
       />
     </Stack.Navigator>
   );

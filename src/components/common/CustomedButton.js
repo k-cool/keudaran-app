@@ -12,7 +12,7 @@ const CustomedButton = ({title, color, bgColor, onPress, iconShown}) => {
   const blockStyle = [styles.block, custumStyle];
   const titleStyle = [styles.title, custumStyle];
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.5}>
+    <TouchableOpacity onPress={() => onPress} activeOpacity={0.5}>
       <View style={blockStyle}>
         <View style={styles.contentsWrapper}>
           <Text style={titleStyle}>{title}</Text>
