@@ -1,3 +1,5 @@
+/* eslint-disable curly */
+
 // solution
 
 function solution(input) {
@@ -19,9 +21,7 @@ function solution(input) {
   };
 
   const getChoSung = char => {
-    if (!/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(char)) {
-      return 0;
-    }
+    if (!/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(char)) return 0;
 
     const jaEum = [
       'ㄱ',
@@ -54,9 +54,7 @@ function solution(input) {
 
   for (let i = 0; i < input.length; i++) {
     const nthChoSung = getChoSung(input.charAt(i));
-    if (!nthChoSung) {
-      continue;
-    }
+    if (!nthChoSung) continue;
     output[nthChoSung] += 1;
   }
 
@@ -86,4 +84,5 @@ const expectedOutput = {
 
 const output = solution(input);
 const result = JSON.stringify(output) === JSON.stringify(expectedOutput);
+
 console.log('resutl: ', result);

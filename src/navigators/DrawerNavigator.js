@@ -9,7 +9,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen
-        name="StackNavigator"
+        name="메인 페이지"
         component={StackNavigator}
         options={{headerShown: false}}
       />
