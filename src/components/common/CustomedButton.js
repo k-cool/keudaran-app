@@ -17,7 +17,7 @@ const CustomedButton = ({title, color, bgColor, onPress, iconShown}) => {
         <View style={styles.contentsWrapper}>
           <Text style={titleStyle}>{title}</Text>
           {iconShown && (
-            <Icon style={styles.icon} name="times" size={20} color={color} />
+            <Icon style={styles.icon} name="times" size={15} color={color} />
           )}
         </View>
       </View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   block: {
     alignSelf: 'flex-start',
     flexShrink: 0,
-    padding: 8,
+    padding: 5,
     borderWidth: 1.5,
     borderRadius: 30,
   },
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    marginRight: 10,
-    paddingBottom: 3,
+    marginRight: 5,
+    paddingBottom: 1,
     fontSize: 18,
   },
 

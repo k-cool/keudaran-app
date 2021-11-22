@@ -1,22 +1,43 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import CustomedButton from '../components/common/CustomedButton';
+import {
+  SafeAreaView,
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+import FilterBar from '../components/HomeScreen/FilterBar';
 import ProductList from '../components/HomeScreen/ProductList';
 
-import productsData from '../data/products';
+import productsData from '../data/productsData';
+import filtersData from '../data/filtersData';
 
 const Home = ({navigation}) => {
   const [products, setProducts] = useState([]);
+  const [filters, setFilters] = useState(filtersData);
+  const [showNotInteresting, setShowNotInteresting] = useState(false);
 
   useEffect(() => {
     setProducts(productsData);
   }, []);
 
+  const {top} = useSafeAreaInsets();
+
   return (
-    <View style={styles.block}>
-      <CustomedButton title="나이키" color="#009988" iconShown={true} />
-      <ProductList products={products} />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView edges={['bottom']} style={styles.block}>
+        <View style={{height: top}} />
+        <View>
+          <FilterBar
+            filters={filters}
+            setFilters={setFilters}
+            showNotInteresting={showNotInteresting}
+            setShowNotInteresting={setShowNotInteresting}
+          />
+          <ProductList products={products} />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

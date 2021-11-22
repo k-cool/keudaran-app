@@ -1,7 +1,7 @@
 const data = [
   {
     id: 1,
-    title: '중고 나이키 테아 흰검 245 30000원',
+    title: '중고 나이키 테아 흰검 245',
     brand: '나이키',
     price: 30000,
   },
@@ -290,9 +290,9 @@ const data = [
   },
   {
     id: 49,
-    title: '(풀구성',
-    brand: '정품M)구찌 로고 후드티',
-    price: '구찌',
+    title: '(풀구성정품M)구찌 로고 후드티',
+    brand: '구찌',
+    price: 1200000,
   },
   {
     id: 50,

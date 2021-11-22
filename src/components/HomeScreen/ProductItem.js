@@ -14,7 +14,7 @@ const ProductItem = ({id, title, brand, price}) => {
         <Text style={styles.title}>{title}</Text>
         <View style={styles.secondLine}>
           <Text style={styles.brand}>{brand}</Text>
-          <Text style={styles.price}>{addComma(price)}</Text>
+          <Text style={styles.price}>{addComma(price) + ' 원'}</Text>
         </View>
       </View>
     </TouchableOpacity>
