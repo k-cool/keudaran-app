@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, Dimensions} from 'react-native';
 
 import CustomedButton from '../components/common/CustomedButton';
+import {addComma} from '../utils/NumberUtils';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -21,10 +22,10 @@ const Detail = ({route}) => {
       <Text>{route.params.id}</Text>
       <Image style={styles.img} source={require('../assets/dinoIcon.png')} />
       <View style={styles.firstLine}>
-        <Text style={styles.text}>{`브랜드 : ${brand}`}</Text>
+        <Text style={styles.text}>{'브랜드 : ' + brand}</Text>
       </View>
       <View style={styles.secondLine}>
-        <Text style={styles.text}>{`가격 : ${price}`}</Text>
+        <Text style={styles.text}>{'가격 : ' + addComma(price) + '원'}</Text>
       </View>
       <View style={styles.notInterestingBtn}>
         <CustomedButton title="관심없어요😅" color="#97B1AB" />

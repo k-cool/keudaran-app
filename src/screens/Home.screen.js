@@ -7,6 +7,7 @@ import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import FilterBar from '../components/HomeScreen/FilterBar';
 import ProductList from '../components/HomeScreen/ProductList';
 
+import ProductsStorage from '../Storages/ProductsStorage';
 import productsData from '../data/productsData';
 import filtersData from '../data/filtersData';
 
@@ -16,16 +17,27 @@ const Home = ({navigation}) => {
   const [showNotInteresting, setShowNotInteresting] = useState(false);
 
   useEffect(() => {
-    const selectedFilters = filters.filter(filter => filter.selected);
-    if (selectedFilters.length !== 0) {
-      const nextProducts = [];
-      for (let i = 0; i < productsData.length; i++)
-        for (let j = 0; j < selectedFilters.length; j++)
-          if (productsData[i].brand === selectedFilters[j].name)
-            nextProducts.push(productsData[i]);
-      setProducts(nextProducts);
-    } else setProducts(productsData);
-  }, [filters]);
+    ProductsStorage.initialize(productsData)
+      .then(setProducts)
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    if (showNotInteresting) ProductsStorage.getAll().then(setProducts);
+    else ProductsStorage.getWithoutNotInteresting().then(setProducts);
+  }, [showNotInteresting]);
+
+  // useEffect(() => {
+  //   const selectedFilters = filters.filter(filter => filter.selected);
+  //   const nextProducts = [];
+  //   if (selectedFilters.length !== 0) {
+  //     for (let i = 0; i < products.length; i++)
+  //       for (let j = 0; j < selectedFilters.length; j++)
+  //         if (products[i].brand === selectedFilters[j].name)
+  //           nextProducts.push(products[i]);
+  //     setProducts(nextProducts);
+  //   } else setProducts(productsData);
+  // }, [filters, products]);
 
   const toggleSelected = id => {
     const nextFilter = filters.map(brand =>
