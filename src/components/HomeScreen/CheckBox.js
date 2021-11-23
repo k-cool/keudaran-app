@@ -11,12 +11,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const windowWidth = Dimensions.get('window').width;
 
 const CheckBox = ({showNotInteresting, setShowNotInteresting}) => {
+  const onPress = () => setShowNotInteresting(!showNotInteresting);
+
   return (
     <View style={styles.notInteresting}>
       <TouchableOpacity
         style={styles.checkBoxWrapper}
         activeOpacity={0.5}
-        onPress={() => setShowNotInteresting(!showNotInteresting)}>
+        onPress={onPress}>
         <Text>관심없음 상품 보기</Text>
         {showNotInteresting ? (
           <Icon name="checkbox-marked" size={15} color="#009988" />

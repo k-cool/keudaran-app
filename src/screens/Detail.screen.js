@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, Dimensions} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 import CustomedButton from '../components/common/CustomedButton';
 import {addComma} from '../utils/NumberUtils';
@@ -30,6 +31,7 @@ const Detail = ({route}) => {
       <View style={styles.notInterestingBtn}>
         <CustomedButton title="관심없어요😅" color="#97B1AB" />
       </View>
+      <ScrollView />
     </View>
   );
 };

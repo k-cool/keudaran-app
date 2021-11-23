@@ -17,27 +17,30 @@ const Home = ({navigation}) => {
   const [showNotInteresting, setShowNotInteresting] = useState(false);
 
   useEffect(() => {
-    ProductsStorage.initialize(productsData)
-      .then(setProducts)
-      .catch(console.error);
+    ProductsStorage.initialize(productsData).catch(console.error);
   }, []);
 
   useEffect(() => {
-    if (showNotInteresting) ProductsStorage.getAll().then(setProducts);
-    else ProductsStorage.getWithoutNotInteresting().then(setProducts);
-  }, [showNotInteresting]);
+    ProductsStorage.getAll().then(result => {
+      let allList = result;
 
-  // useEffect(() => {
-  //   const selectedFilters = filters.filter(filter => filter.selected);
-  //   const nextProducts = [];
-  //   if (selectedFilters.length !== 0) {
-  //     for (let i = 0; i < products.length; i++)
-  //       for (let j = 0; j < selectedFilters.length; j++)
-  //         if (products[i].brand === selectedFilters[j].name)
-  //           nextProducts.push(products[i]);
-  //     setProducts(nextProducts);
-  //   } else setProducts(productsData);
-  // }, [filters, products]);
+      if (!showNotInteresting)
+        allList = allList.filter(item => !item.notInteresting);
+
+      const selectedFilters = filters.filter(filter => filter.selected);
+      const nextProducts = [];
+
+      if (selectedFilters.length !== 0) {
+        for (let i = 0; i < allList.length; i++)
+          for (let j = 0; j < selectedFilters.length; j++)
+            if (allList[i].brand === selectedFilters[j].name)
+              nextProducts.push(allList[i]);
+
+        return setProducts(nextProducts);
+      }
+      setProducts(allList);
+    });
+  }, [filters, showNotInteresting]);
 
   const toggleSelected = id => {
     const nextFilter = filters.map(brand =>
