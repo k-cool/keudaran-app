@@ -15,29 +15,34 @@ import {addComma} from '../utils/NumberUtils';
 import CustomedButton from '../components/common/CustomedButton';
 
 const windowWidth = Dimensions.get('window').width;
-const LENGTH = 10;
+let LENGTH = 0;
 
 const Detail = ({route, navigation}) => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    ProductsStorage.getProduct(route.params.id)
-      .then(setProduct)
-      .finally(() => ProductsStorage.setTimeStamp(route.params.id))
-      .catch(console.error);
+    updateDetailScreen(route.params.id);
   }, [route.params.id]);
+
+  const updateDetailScreen = async _id => {
+    const productData = await ProductsStorage.getProduct(_id);
+    setProduct(productData);
+    await ProductsStorage.setTimeStamp(_id);
+  };
 
   const generateRandomNum = () => {
     return Math.floor(Math.random() * LENGTH) + 1;
   };
 
   const goToRandomDetail = async id => {
+    LENGTH = await ProductsStorage.getAllProductsLength();
     await ProductsStorage.toggleNotInteresting(id);
 
     const notInterestingArr = await ProductsStorage.getNotInterestingId();
     if (notInterestingArr.length === LENGTH) return navigation.navigate('Home');
 
     let randomNum = generateRandomNum();
+
     while (notInterestingArr.includes(randomNum))
       randomNum = generateRandomNum();
 

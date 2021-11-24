@@ -8,12 +8,9 @@ const LAST = 'last';
 const ProductsStorage = {
   async initialize(data) {
     try {
-      // await AsyncStorage.clear(() => {});
-      let prevProducts = await AsyncStorage.getItem(KEY);
-      if (!prevProducts) {
-        await AsyncStorage.setItem(KEY, JSON.stringify(data));
-        prevProducts = await AsyncStorage.getItem(KEY);
-      }
+      await AsyncStorage.setItem(KEY, JSON.stringify(data));
+      const prevProducts = await AsyncStorage.getItem(KEY);
+
       const newProducts = JSON.parse(prevProducts).filter(
         item => !item.notInteresting,
       );
@@ -27,6 +24,17 @@ const ProductsStorage = {
     try {
       const rawProducts = await AsyncStorage.getItem(KEY);
       return !rawProducts ? null : JSON.parse(rawProducts);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async getAllProductsLength() {
+    try {
+      const rawProducts = await AsyncStorage.getItem(KEY);
+      if (!rawProducts) return null;
+
+      return JSON.parse(rawProducts).length;
     } catch (e) {
       console.error(e);
     }

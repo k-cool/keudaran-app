@@ -4,7 +4,7 @@ import CustomedButton from '../common/CustomedButton';
 import ProductsStorage from '../../Storages/ProductsStorage';
 
 const NoMore = props => {
-  const {updateHomeScreen, filters, showNotInteresting} = props;
+  const {updateHomeScreen, filters, showNotInteresting, loading} = props;
   const onResetBtnPressed = () => {
     ProductsStorage.resetNotInteresting().then(() =>
       updateHomeScreen(filters, showNotInteresting),
@@ -13,14 +13,18 @@ const NoMore = props => {
 
   return (
     <View style={styles.block}>
-      <Text style={styles.title}>🗑</Text>
-      <Text style={styles.text}>리스트가 비었어요!😧</Text>
-      <TouchableOpacity
-        style={styles.btn}
-        activeOpacity={0.5}
-        onPress={onResetBtnPressed}>
-        <CustomedButton title="관심없음 초기화하기" color="green" />
-      </TouchableOpacity>
+      {!loading && (
+        <>
+          <Text style={styles.title}>🗑</Text>
+          <Text style={styles.text}>리스트가 비었어요!😧</Text>
+          <TouchableOpacity
+            style={styles.btn}
+            activeOpacity={0.5}
+            onPress={onResetBtnPressed}>
+            <CustomedButton title="관심없음 초기화하기" color="green" />
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };

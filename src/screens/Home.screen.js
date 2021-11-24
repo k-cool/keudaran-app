@@ -19,10 +19,11 @@ const Home = ({navigation}) => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState(filtersData);
   const [showNotInteresting, setShowNotInteresting] = useState(false);
+  const [loading, setLoading] = useState(true);
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    ProductsStorage.initialize(productsData).catch(console.error);
+    ProductsStorage.initialize(productsData);
   }, []);
 
   useEffect(() => {
@@ -55,6 +56,7 @@ const Home = ({navigation}) => {
       return setProducts(nextProducts);
     }
     setProducts(allList);
+    setLoading(false);
   };
 
   const toggleSelected = id => {
@@ -64,7 +66,7 @@ const Home = ({navigation}) => {
     setFilters(nextFilter);
   };
 
-  const checkNotInteresting = id => {
+  const checkNotInteresting = async id => {
     const isNotInteresting = products.find(
       item => item.id === id,
     ).notInteresting;
@@ -97,6 +99,7 @@ const Home = ({navigation}) => {
         <ProductList
           products={products}
           filters={filters}
+          loading={loading}
           showNotInteresting={showNotInteresting}
           checkNotInteresting={checkNotInteresting}
           updateHomeScreen={updateHomeScreen}
