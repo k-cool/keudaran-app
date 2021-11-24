@@ -155,6 +155,32 @@ const ProductsStorage = {
     }
   },
 
+  async resetTimestamp() {
+    try {
+      const rawProducts = await AsyncStorage.getItem(KEY);
+      if (!rawProducts) return null;
+
+      const nextProducts = JSON.parse(rawProducts).map(item => {
+        if (item.recentSee) {
+          delete item.recentSee;
+          return item;
+        } else return item;
+      });
+
+      await AsyncStorage.setItem(KEY, JSON.stringify(nextProducts));
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async getLast() {
+    try {
+      return await AsyncStorage.getItem(LAST);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
   async clearProducts() {
     try {
       await AsyncStorage.removeItem(KEY);

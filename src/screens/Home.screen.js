@@ -29,26 +29,32 @@ const Home = ({navigation}) => {
     updateHomeScreen(filters, showNotInteresting);
   }, [filters, showNotInteresting, isFocused]);
 
-  const updateHomeScreen = (_filters, _showNotInteresting) => {
-    ProductsStorage.getAll().then(result => {
-      let allList = result;
+  const updateHomeScreen = async (_filters, _showNotInteresting) => {
+    const savedToday = await ProductsStorage.getLast();
+    const today = new Date().toLocaleDateString();
 
-      if (!_showNotInteresting)
-        allList = allList.filter(item => !item.notInteresting);
+    if (!savedToday === today) {
+      await ProductsStorage.resetTimestamp();
+      await ProductsStorage.resetNotInteresting();
+    }
 
-      const selectedFilters = _filters.filter(filter => filter.selected);
-      const nextProducts = [];
+    let allList = await ProductsStorage.getAll();
 
-      if (selectedFilters.length !== 0) {
-        for (let i = 0; i < allList.length; i++)
-          for (let j = 0; j < selectedFilters.length; j++)
-            if (allList[i].brand === selectedFilters[j].name)
-              nextProducts.push(allList[i]);
+    if (!_showNotInteresting)
+      allList = allList.filter(item => !item.notInteresting);
 
-        return setProducts(nextProducts);
-      }
-      setProducts(allList);
-    });
+    const selectedFilters = _filters.filter(filter => filter.selected);
+    const nextProducts = [];
+
+    if (selectedFilters.length !== 0) {
+      for (let i = 0; i < allList.length; i++)
+        for (let j = 0; j < selectedFilters.length; j++)
+          if (allList[i].brand === selectedFilters[j].name)
+            nextProducts.push(allList[i]);
+
+      return setProducts(nextProducts);
+    }
+    setProducts(allList);
   };
 
   const toggleSelected = id => {
