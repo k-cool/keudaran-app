@@ -1,21 +1,16 @@
 import React from 'react';
-import {StyleSheet, FlatList, View, Image, Dimensions} from 'react-native';
+import {StyleSheet, FlatList, View} from 'react-native';
+import NoMore from '../../screens/NoMore.screen';
 import ProductItem from './ProductItem';
 
-const windowWidth = Dimensions.get('window').width;
-
-const ProductList = ({products, navigation}) => {
+const ProductList = props => {
+  const {products, checkNotInteresting} = props;
   const renderItem = ({item}) => (
-    <ProductItem {...item} navigation={navigation} />
+    <ProductItem {...item} checkNotInteresting={checkNotInteresting} />
   );
 
   const ItemSeperatorComponent = () => <View style={styles.separator} />;
-
-  const ListHeader = (
-    <View style={styles.logoWrapper}>
-      <Image style={styles.logo} source={require('../../assets/logo.png')} />
-    </View>
-  );
+  const ListEmptyComponent = <NoMore {...props} />;
 
   return (
     <FlatList
@@ -24,28 +19,18 @@ const ProductList = ({products, navigation}) => {
       renderItem={renderItem}
       keyExtractor={item => item.id}
       ItemSeparatorComponent={ItemSeperatorComponent}
-      ListHeaderComponent={ListHeader}
       showsVerticalScrollIndicator={false}
+      ListEmptyComponent={ListEmptyComponent}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  list: {},
+  list: {flex: 1},
 
   separator: {
     height: 1,
     backgroundColor: 'lightgrey',
-  },
-
-  logoWrapper: {
-    overflow: 'hidden',
-  },
-
-  logo: {
-    width: windowWidth,
-    height: 80,
-    resizeMode: 'contain',
   },
 });
 

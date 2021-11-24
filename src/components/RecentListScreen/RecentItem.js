@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
-
+import {StyleSheet, Text, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {addComma} from '../../utils/NumberUtils';
 
 const RecentItem = ({id, title, brand, price}) => {
   return (
     <View style={styles.block}>
-      <Image
+      <FastImage
         style={styles.icon}
         source={require('../../assets/dinoIcon.png')}
+        resizeMode={FastImage.resizeMode.contain}
       />
       <View style={styles.description}>
         <Text style={styles.title}>{title}</Text>
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginHorizontal: 5,
-    resizeMode: 'contain',
   },
 
   description: {

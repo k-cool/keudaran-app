@@ -1,19 +1,20 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
-
+import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {addComma} from '../../utils/NumberUtils';
 
 const ProductItem = props => {
-  const {id, title, brand, price, navigation} = props;
+  const {id, title, brand, price, checkNotInteresting} = props;
 
   return (
     <TouchableOpacity
       style={styles.block}
       activeOpacity={0.5}
-      onPress={() => navigation.push('Detail', {id: id})}>
-      <Image
+      onPress={() => checkNotInteresting(id)}>
+      <FastImage
         style={styles.icon}
         source={require('../../assets/dinoIcon.png')}
+        resizeMode={FastImage.resizeMode.contain}
       />
       <View style={styles.description}>
         <Text style={styles.title}>{title}</Text>
@@ -37,7 +38,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginHorizontal: 5,
-    resizeMode: 'contain',
   },
 
   description: {

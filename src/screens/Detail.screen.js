@@ -1,21 +1,49 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, Image, Dimensions} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+/* eslint-disable curly */
 
-import CustomedButton from '../components/common/CustomedButton';
+import React, {useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import ProductsStorage from '../Storages/ProductsStorage';
 import {addComma} from '../utils/NumberUtils';
 
+import CustomedButton from '../components/common/CustomedButton';
+
 const windowWidth = Dimensions.get('window').width;
+const LENGTH = 10;
 
-const Detail = ({route}) => {
-  const [product, setProduct] = useState({
-    id: 1,
-    title: '중고 나이키 테아 흰검 245',
-    brand: '나이키',
-    price: 30000,
-  });
+const Detail = ({route, navigation}) => {
+  const [product, setProduct] = useState({});
 
-  const {id, title, brand, price} = product;
+  useEffect(() => {
+    ProductsStorage.getProduct(route.params.id)
+      .then(setProduct)
+      .catch(console.error);
+  }, [route.params.id]);
+
+  const generateRandomNum = () => {
+    return Math.floor(Math.random() * LENGTH) + 1;
+  };
+
+  const goToRandomDetail = async id => {
+    await ProductsStorage.toggleNotInteresting(id);
+
+    const notInterestingArr = await ProductsStorage.getNotInterestingId();
+    if (notInterestingArr.length === LENGTH) return navigation.navigate('Home');
+
+    let randomNum = generateRandomNum();
+    while (notInterestingArr.includes(randomNum))
+      randomNum = generateRandomNum();
+
+    navigation.navigate('Detail', {id: randomNum});
+  };
+
+  const {id, title, brand, price, notInteresting} = product;
 
   return (
     <View style={styles.block}>
@@ -28,10 +56,18 @@ const Detail = ({route}) => {
       <View style={styles.secondLine}>
         <Text style={styles.text}>{'가격 : ' + addComma(price) + '원'}</Text>
       </View>
-      <View style={styles.notInterestingBtn}>
-        <CustomedButton title="관심없어요😅" color="#97B1AB" />
-      </View>
-      <ScrollView />
+      {notInteresting ? (
+        <TouchableOpacity style={styles.notInterestingBtn} activeOpacity={0.5}>
+          <CustomedButton title="관심없음 취소" color="#97B1AB" />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.notInterestingBtn}
+          activeOpacity={0.5}
+          onPress={() => goToRandomDetail(id)}>
+          <CustomedButton title="관심없어요😅" color="#97B1AB" />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
