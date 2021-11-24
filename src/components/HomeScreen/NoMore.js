@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import CustomedButton from '../components/common/CustomedButton';
-import ProductsStorage from '../Storages/ProductsStorage';
+import CustomedButton from '../common/CustomedButton';
+import ProductsStorage from '../../Storages/ProductsStorage';
 
 const NoMore = props => {
-  const {navigation, updateHomeScreen, filters, showNotInteresting} = props;
+  const {updateHomeScreen, filters, showNotInteresting} = props;
   const onResetBtnPressed = () => {
     ProductsStorage.resetNotInteresting().then(() =>
       updateHomeScreen(filters, showNotInteresting),
@@ -13,7 +13,8 @@ const NoMore = props => {
 
   return (
     <View style={styles.block}>
-      <Text style={styles.text}>모든 상품이 관심없음이 되었어요!🥲</Text>
+      <Text style={styles.title}>🗑</Text>
+      <Text style={styles.text}>리스트가 비었어요!😧</Text>
       <TouchableOpacity
         style={styles.btn}
         activeOpacity={0.5}
@@ -32,9 +33,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 
+  title: {
+    marginVertical: 50,
+    fontSize: 150,
+  },
+
   text: {
     fontSize: 22,
-    marginVertical: 20,
+    marginBottom: 20,
   },
 
   btn: {

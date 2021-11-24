@@ -85,6 +85,7 @@ const Home = ({navigation}) => {
         <FilterBar
           filters={filters}
           toggleSelected={toggleSelected}
+          showNotInteresting={showNotInteresting}
           setShowNotInteresting={setShowNotInteresting}
         />
         <ProductList

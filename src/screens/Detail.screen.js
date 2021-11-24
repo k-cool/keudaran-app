@@ -23,6 +23,7 @@ const Detail = ({route, navigation}) => {
   useEffect(() => {
     ProductsStorage.getProduct(route.params.id)
       .then(setProduct)
+      .finally(() => ProductsStorage.setTimeStamp(route.params.id))
       .catch(console.error);
   }, [route.params.id]);
 
@@ -43,7 +44,7 @@ const Detail = ({route, navigation}) => {
     navigation.navigate('Detail', {id: randomNum});
   };
 
-  const {id, title, brand, price, notInteresting} = product;
+  const {id, title, brand, price} = product;
 
   return (
     <View style={styles.block}>
@@ -56,18 +57,12 @@ const Detail = ({route, navigation}) => {
       <View style={styles.secondLine}>
         <Text style={styles.text}>{'가격 : ' + addComma(price) + '원'}</Text>
       </View>
-      {notInteresting ? (
-        <TouchableOpacity style={styles.notInterestingBtn} activeOpacity={0.5}>
-          <CustomedButton title="관심없음 취소" color="#97B1AB" />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.notInterestingBtn}
-          activeOpacity={0.5}
-          onPress={() => goToRandomDetail(id)}>
-          <CustomedButton title="관심없어요😅" color="#97B1AB" />
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity
+        style={styles.notInterestingBtn}
+        activeOpacity={0.5}
+        onPress={() => goToRandomDetail(id)}>
+        <CustomedButton title="관심없어요😅" color="#97B1AB" />
+      </TouchableOpacity>
     </View>
   );
 };

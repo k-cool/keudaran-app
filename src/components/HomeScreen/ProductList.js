@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, FlatList, View} from 'react-native';
-import NoMore from '../../screens/NoMore.screen';
+import NoMore from './NoMore';
 import ProductItem from './ProductItem';
 
 const ProductList = props => {

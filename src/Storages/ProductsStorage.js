@@ -3,6 +3,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const KEY = 'products';
+const LAST = 'last';
 
 const ProductsStorage = {
   async initialize(data) {
@@ -110,6 +111,27 @@ const ProductsStorage = {
       });
 
       await AsyncStorage.setItem(KEY, JSON.stringify(nextProducts));
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async setTimeStamp(id) {
+    try {
+      const rawProducts = await AsyncStorage.getItem(KEY);
+      if (!rawProducts) return null;
+
+      const nextProducts = JSON.parse(rawProducts).map(item => {
+        if (item.id === id) {
+          const now = new Date().toTimeString().slice(0, 8);
+          return {...item, recentSee: now};
+        } else return item;
+      });
+
+      const today = new Date().toLocaleDateString();
+
+      await AsyncStorage.setItem(KEY, nextProducts);
+      await AsyncStorage.setItem(LAST, today);
     } catch (e) {
       console.error(e);
     }
