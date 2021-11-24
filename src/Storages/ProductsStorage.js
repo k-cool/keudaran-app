@@ -74,6 +74,24 @@ const ProductsStorage = {
     }
   },
 
+  async getRecentProducts() {
+    try {
+      const rawProducts = await AsyncStorage.getItem(KEY);
+      if (!rawProducts) return null;
+
+      const recentProducts = JSON.parse(rawProducts).filter(
+        item => item.recentSee,
+      );
+
+      return recentProducts.sort(
+        (a, b) =>
+          b.recentSee.replaceAll(':', '') - a.recentSee.replaceAll(':', ''),
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
   async set(data) {
     try {
       await AsyncStorage.setItem(KEY, JSON.stringify(data));
@@ -130,7 +148,7 @@ const ProductsStorage = {
 
       const today = new Date().toLocaleDateString();
 
-      await AsyncStorage.setItem(KEY, nextProducts);
+      await AsyncStorage.setItem(KEY, JSON.stringify(nextProducts));
       await AsyncStorage.setItem(LAST, today);
     } catch (e) {
       console.error(e);

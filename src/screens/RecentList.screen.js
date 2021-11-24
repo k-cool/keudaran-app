@@ -1,15 +1,17 @@
+import {useIsFocused} from '@react-navigation/core';
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-import productsData from '../data/productsData';
 import RecentList from '../components/RecentListScreen/RecentList';
+import ProductsStorage from '../Storages/ProductsStorage';
 
 const RecentListScreen = ({navigation}) => {
   const [recentProducts, setRecentProducts] = useState([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    setRecentProducts(productsData);
-  }, []);
+    ProductsStorage.getRecentProducts().then(setRecentProducts);
+  }, [isFocused]);
 
   return (
     <View style={styles.block}>
