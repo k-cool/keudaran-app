@@ -8,13 +8,12 @@ const LAST = 'last';
 const ProductsStorage = {
   async initialize(data) {
     try {
-      await AsyncStorage.setItem(KEY, JSON.stringify(data));
-      const prevProducts = await AsyncStorage.getItem(KEY);
+      const rawProducts = await AsyncStorage.getItem(KEY);
+      const rawProductsLength = JSON.parse(rawProducts).length;
 
-      const newProducts = JSON.parse(prevProducts).filter(
-        item => !item.notInteresting,
-      );
-      return newProducts;
+      if (!rawProducts || rawProductsLength !== data.length) {
+        await AsyncStorage.setItem(KEY, JSON.stringify(data));
+      }
     } catch (e) {
       console.error(e);
     }

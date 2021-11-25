@@ -10,7 +10,6 @@ const data = [
     title: '거의새것 정품 구찌 보스턴백 토트백',
     brand: '구찌',
     price: 380000,
-    notInteresting: true,
   },
   {
     id: 3,
@@ -23,7 +22,6 @@ const data = [
     title: '중고 루이비통 장지갑 백화점 풀구성',
     brand: '루이비통',
     price: 400000,
-    notInteresting: true,
   },
   {
     id: 5,
@@ -36,14 +34,12 @@ const data = [
     title: '나이키바람막이',
     brand: '나이키',
     price: 68000,
-    notInteresting: true,
   },
   {
     id: 7,
     title: '구찌 정품 카드지갑 (급처)',
     brand: '구찌',
     price: 100000,
-    notInteresting: true,
   },
   {
     id: 8,
@@ -119,8 +115,8 @@ const data = [
   },
   {
     id: 20,
-    title: '스톤아일랜드',
-    brand: '스톤아일랜드',
+    title: '샤넬 지갑',
+    brand: '샤넬',
     price: 550000,
   },
   // {
