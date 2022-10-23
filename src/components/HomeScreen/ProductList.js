@@ -5,6 +5,7 @@ import ProductItem from './ProductItem';
 
 const ProductList = props => {
   const {products, checkNotInteresting} = props;
+
   const renderItem = ({item}) => (
     <ProductItem {...item} checkNotInteresting={checkNotInteresting} />
   );
